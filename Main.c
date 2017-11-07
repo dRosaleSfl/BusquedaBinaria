@@ -7,96 +7,70 @@
 int main ()
 	{
 		srand(time(NULL));
-		int mat [6];
-		int ordenad;
+		int n = 0;
+		int in = 0;
+		printf ("De que cantidad de numeros aleatorios quieres que sea la el vector?\n");
+		scanf ("%d", &n);
+		int mat [n];
 		int valor = 0;
 		int min = 1;
 		int max = 50;
+		int men = 0;
+		int med = (in + n)/2;
 		int busqueda = 0;
-		int busqN = 0;
-		int band = 0;
-		for (int cunt = 0; cunt < 6; cunt ++)
+		for (int cont = 0; cont < n; cont ++)
 			{
-				for (int cont = 0; cont < 6; cont ++)
-					{
-						valor = min + rand() / (RAND_MAX / (max-min+1)+1);
-						mat [cont] = valor;
-					}
+				valor = min + rand() / (RAND_MAX / (max-min+1)+1);
+				mat [cont] = valor;
+				printf ("\%d ", mat [cont]);
 			}
 		
-		for (int cont = 0; cont < 6; cont ++)
+		for (int cont = 0; cont < n; cont ++)
 			{
-				for (int cont2 = 0; cont2 < 6; cont2 ++)
+				for (int cont0 = 0; cont0 < n; cont0 ++)
 					{
-						if (mat [cont] < mat [cont2])
+						switch (cont)
 							{
-								ordenad = mat [cont];
-								mat [cont] = mat [cont2];
-								mat [cont2] = ordenad;
+								case 0:
+									men = mat [cont];
+								break;
 								
+								default:
+									if (mat [cont] < mat [cont0])
+										{
+											men = mat [cont];
+											mat [cont] = mat [cont0];
+											mat [cont0] = men;
+										}
+								break;
 							}
 					}
 			}
 		
-		for (int cont3 = 0; cont3 < 6; cont3 ++)
+		printf ("\n");
+		
+		for (int cont3 = 0; cont3 < n; cont3 ++)
 			{
 				printf ("%d ", mat [cont3]);
 			}
 		printf ("\nQue numeros del vector quieres buscar?\n");
 		scanf ("%d", &busqueda);
-		do
+		
+		while (in <= n) 
 			{
-				switch (busqN)
+				med = (in + n) / 2;
+				if (busqueda == mat[med]) 
 					{
-						case 0:
-							if (mat [2] < busqueda)
-								{
-									busqN ++ ;
-								}
-							if (mat [2] > busqueda)
-								{
-									if (mat [1] == busqueda)
-										{
-											printf ("El numero que buscas esta en la seguda posicion\n");
-											band = 1;
-										}
-									if (mat [0] == busqueda)
-										{
-											printf ("El numero que buscas esta en la primera posicion\n");
-											band = 1;
-										}
-								}
-							if (mat [2] == busqueda)
-								{
-									printf ("El numero que buscas esta en la tercera posicion\n");
-									band = 1;
-								}
+						printf("El elemento esta en la posicion: %d \n", med + 1);
 						break;
-						
-						case 1:
-							if (mat [3] < busqueda)
-								{
-									busqN ++ ;
-								}
-							if (mat [3] == busqueda)
-								{
-									printf ("El numero que buscas esta en la Quarta posicion\n");
-									band = 1;
-								}
-						break;
-						
-						case 2:
-							if (mat [4] == busqueda)
-								{
-									printf ("El numero que buscas esta en la Quinta posicion\n");
-									band = 1;
-								}
-							if (mat [5] == busqueda)
-								{
-									printf ("El numero que buscas esta en la Sexta posicion\n");
-									band = 1;
-								}
-						break;
+					} 
+				else if (mat[med] > busqueda)
+					{
+						n = med - 1;
+					} 
+				else 
+					{
+						in = med + 1;
 					}
-			} while (band == 0);
+			}
 	}
